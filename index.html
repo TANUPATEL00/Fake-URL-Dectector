@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Detector with Hacker Vibes Background</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+            font-family: 'Courier New', Courier, monospace;
+            color: #0f0;
+
+            /* Hacker vibe background image */
+            background-image: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; /* Cover entire viewport */
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #000; /* fallback black background */
+        }
+
+        .container {
+            text-align: center; /* Center text in container */
+            background-color: rgba(0, 0, 0, 0.75); /* Darker semi-transparent background */
+            padding: 25px 20px;
+            border-radius: 12px;
+            color: #0f0; /* bright green text */
+            max-width: 420px;
+            margin: auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 20px #00ff00aa, 0 0 40px #00ff0077 inset;
+            border: 1px solid #0f0;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-shadow:
+                0 0 5px #00ff00,
+                0 0 10px #00ff00cc;
+            margin-bottom: 0.3rem;
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 8px #00ff0077;
+        }
+
+        input[type="url"] {
+            padding: 12px 15px;
+            margin: 12px 0;
+            width: 80%;
+            background-color: #001100;
+            border: 1.5px solid #0f0;
+            border-radius: 6px;
+            outline: none;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border: 2px solid #ff0000;
+            background-color: #220000;
+            box-shadow: 0 0 10px #ff0000aa;
+        }
+
+        button {
+            padding: 12px 28px;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.07em;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 15px #00ff00aa;
+        }
+
+        button:hover {
+            background-color: #00cc00;
+            box-shadow: 0 0 25px #00ff00ee;
+        }
+
+        button:focus {
+            outline: 2px solid #ff0000;
+            outline-offset: 2px;
+            box-shadow: 0 0 25px #ff0000ee;
+            background-color: #bb0000;
+            color: #fff;
+        }
+
+        #result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            text-shadow:
+                0 0 5px #000, 0 0 10px #000;
+        }
+
+        .safe {
+            background-color: #003300;
+            color: #0f0;
+            box-shadow: 0 0 15px #00ff00bb;
+            border: 1px solid #0f0;
+        }
+
+        .unsafe {
+            background-color: #330000;
+            color: #ff0000;
+            box-shadow: 0 0 15px #ff0000bb;
+            border: 1px solid #ff0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            input {
+                width: 90%;
+            }
+
+            button {
+                width: 90%;
+            }
+
+            .container {
+                max-width: 95%;
+                padding: 20px 15px;
+            }
+        
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main" aria-label="Fake URL detector form">
+        <h1>FAKE URL DETECTOR</h1>
+        <p>Enter a URL below to check if it's potentially fake or malicious.</p>
+        <form id="urlForm" aria-live="polite" aria-describedby="result">
+            <input type="url" id="urlInput" placeholder="Paste URL Here..." required aria-label="URL input">
+            <button type="submit" aria-label="Check URL">Check URL</button>
+        </form>
+        <div id="result" class="unsafe" aria-live="assertive">This URL might be unsafe!</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('urlForm');
+        const urlInput = document.getElementById('urlInput');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = urlInput.value.trim();
+
+            result.textContent = 'Checking...';
+            result.className = '';
+
+            // Simulating API call delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Basic malicious URL check logic for demo
+            const isFake = url.includes('.ru') ||
+                url.includes('.tk') ||
+                url.includes('.xyz') ||
+                !url.startsWith('https');
+
+            if (isFake) {
+                result.textContent = 'This URL might be unsafe!';
+                result.className = 'unsafe';
+            } else {
+                result.textContent = 'This URL appears to be safe.';
+                result.className = 'safe';
+            }
+        });
+    </script>
+
+</body></html>
